@@ -1,0 +1,10 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.filter {
+    display: flex;
+    align-items: baseline;
+    padding: 10px;
+    box-sizing: border-box;
+    justify-content: center;
+    margin: 10px;
+}
