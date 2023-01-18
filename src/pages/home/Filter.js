@@ -1,51 +1,85 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Dropdown, Form} from "react-bootstrap";
 import {animalSpecies} from "../../utils/data";
 
-function Filter() {
-  return (
-      <>
-      <div>Подарить подарок</div>
-      <div className="filter">
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Вид животного
-          </Dropdown.Toggle>
+function Filter(props) {
 
-          <Dropdown.Menu>
-            {animalSpecies.map(el =>
-              <Dropdown.Item eventKey={el.id}>{el.name}</Dropdown.Item>
-            )}
-          </Dropdown.Menu>
-        </Dropdown>
-        <Form>
-          {['radio'].map((type) => (
-              <div key={`reverse-${type}`} className="mb-3">
-                <Form.Check
-                    reverse
-                    label="М"
-                    name="group1"
-                    type={type}
-                    id={`reverse-${type}-1`}
-                    inline={true}
-                />
-                <Form.Check
-                    reverse
-                    label="Ж"
-                    name="group1"
-                    type={type}
-                    id={`reverse-${type}-2`}
-                    inline={true}
-                />
-              </div>
-          ))}
-        </Form>
-        <Form>
-          <Form.Control size="df" type="text" placeholder="Large text" />
-        </Form>
-        <Button variant="dark">Добавить</Button>
+  const [obj, setObj] = useState({
+    species: '',
+    gender: '',
+    age: ''
+  })
+
+  function onDropdownClick(value) {
+      setObj({
+        ...obj,
+        species: value
+      })
+  }
+
+  function onInput(e) {
+    setObj({
+      ...obj,
+      age: e.target.value
+    })
+  }
+
+  function onGenderClick(value) {
+    setObj({
+      ...obj,
+      gender: value
+    })
+  }
+
+  return (
+      <div style={{width: '50%', marginLeft: 'auto', marginRight: 'auto'}}>
+        <div style={{fontSize: '2em', display: 'flex', justifyContent: 'center'}}>Подарить подарок</div>
+        <div className="filter">
+          <Dropdown onSelect={(value) => onDropdownClick(value)}>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Вид животного
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {animalSpecies.map(el =>
+                  <Dropdown.Item eventKey={el.name}>{el.name}</Dropdown.Item>
+              )}
+            </Dropdown.Menu>
+          </Dropdown>
+          <Form>
+            <div  key={`inline-radio`} className="mb-3">
+              <Form.Check
+                  label="М"
+                  name="group1"
+                  type={'radio'}
+                  id={'inline-radio-1'}
+                  inline
+                  value="М"
+                  onClick={(e) => onGenderClick(e.target.value)}
+              />
+              <Form.Check
+                  label="Ж"
+                  name="group1"
+                  type={'radio'}
+                  id={'inline-radio-2'}
+                  inline
+                  value="Ж"
+                  onClick={(e) => onGenderClick(e.target.value)}
+              />
+            </div>
+          </Form>
+          <Form>
+            <Form.Control
+                size="df"
+                type="text"
+                value={obj.name}
+                onChange={(e) => onInput(e)}
+                placeholder="Large text"
+            />
+          </Form>
+          <Button variant="dark" onClick={() => props.onAdd(obj)}>Добавить</Button>
+        </div>
       </div>
-      </>
   );
 }
 

@@ -5,6 +5,20 @@
     align-items: baseline;
     padding: 10px;
     box-sizing: border-box;
-    justify-content: center;
+    justify-content: space-around;
     margin: 10px;
+}
+
+.gift-container-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    width: 40%;
+}
+
+.filter-forms {
+    display: flex;
 }

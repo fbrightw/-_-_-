@@ -11,8 +11,6 @@ if (process.env.NODE_ENV === 'production') { // Режим production, если
   mode = 'production';
 }
 
-const backendUrl = 'http://localhost:8080'
-
 const plugins = [
   new HtmlWebpackPlugin({
     template: './public/index.html', // Данный html будет использован как шаблон
