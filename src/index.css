@@ -1,5 +1,12 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+#home,
+#analytics,
+#actions {
+    min-height: 100px;
+}
+
 .filter {
     display: flex;
     align-items: baseline;
@@ -16,9 +23,21 @@
 }
 
 .card {
-    width: 40%;
+    width: 60%;
+    padding: 10px;
+    margin: 10px;
 }
 
 .filter-forms {
     display: flex;
+}
+
+.delete-text {
+    color: darkred;
+    cursor: pointer;
+    display: flex;
+}
+
+.delete-text:hover {
+
 }

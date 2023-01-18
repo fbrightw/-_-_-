@@ -1,14 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Dropdown, Form} from "react-bootstrap";
 import {animalSpecies} from "../../utils/data";
 
 function Filter(props) {
 
+  const [id, setId] = useState(0);
   const [obj, setObj] = useState({
     species: '',
     gender: '',
     age: ''
   })
+
+  useEffect(() => {
+    setId(id + 1)
+  }, [])
 
   function onDropdownClick(value) {
       setObj({
@@ -37,12 +42,11 @@ function Filter(props) {
         <div className="filter">
           <Dropdown onSelect={(value) => onDropdownClick(value)}>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
-              Вид животного
+              {obj.species === '' ? 'Вид животного' : obj.species}
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
               {animalSpecies.map(el =>
-                  <Dropdown.Item eventKey={el.name}>{el.name}</Dropdown.Item>
+                  <Dropdown.Item eventKey={el.name} key={el.id}>{el.name}</Dropdown.Item>
               )}
             </Dropdown.Menu>
           </Dropdown>
@@ -74,10 +78,12 @@ function Filter(props) {
                 type="text"
                 value={obj.name}
                 onChange={(e) => onInput(e)}
-                placeholder="Large text"
+                placeholder="Укажите возраст"
             />
           </Form>
-          <Button variant="dark" onClick={() => props.onAdd(obj)}>Добавить</Button>
+          <Button variant="dark" onClick={() => props.onAdd(obj)}>
+              Добавить
+          </Button>
         </div>
       </div>
   );

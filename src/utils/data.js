@@ -16,7 +16,7 @@ export const animalSpecies = [
     name: 'Грациозная Иликура'
   },
   {
-    id: 3,
+    id: 4,
     name: ' Беспечная Ендайя'
   },
 ]
