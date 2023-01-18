@@ -6,6 +6,8 @@ import Home from "./pages/home";
 import Analytics from "./pages/analytics";
 import Actions from "./pages/actions";
 import AppNavbar from "./navbar/AppNavbar";
+import {store} from "./slices/store";
+import {Provider} from "react-redux";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,13 +15,15 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
-          <AppNavbar/>
-          <Routes>
-            <Route path="/home" element={<Home/>} />
-            <Route path="/analytics" element={<Analytics/>} />
-            <Route path="/actions" element={<Actions/>} />
-          </Routes>
-      </BrowserRouter>
+      <Provider store={store}>
+          <BrowserRouter>
+              <AppNavbar/>
+              <Routes>
+                <Route path="/home" element={<Home/>} />
+                <Route path="/analytics" element={<Analytics/>} />
+                <Route path="/actions" element={<Actions/>} />
+              </Routes>
+          </BrowserRouter>
+      </Provider>
   </React.StrictMode>
 );
