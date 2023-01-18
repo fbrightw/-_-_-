@@ -3,26 +3,22 @@ import {Card, ListGroup} from "react-bootstrap";
 
 function GiftsContainer(props) {
 
-  function onDelete(id) {
-    console.log("id", id)
-  }
-
   return (
       <div className="gift-container-list">
         <Card className="card">
           <ListGroup variant="flush">
             {props.gifts.map(gift => (
-              <div>
+              <div key={gift.id}>
                 <ListGroup.Item>
                   <div className="card-header">
                     {gift.species}
-                    <div
+                    <button
                         className="delete-text"
-                        id={gift.id}
-                        onClick={(e) => onDelete(e.target.value)}
+                        value={gift.id}
+                        onClick={(e) => props.onDelete(e.target.value)}
                     >
                       Удалить
-                    </div>
+                    </button>
                   </div>
                 </ListGroup.Item>
                 <ListGroup.Item>

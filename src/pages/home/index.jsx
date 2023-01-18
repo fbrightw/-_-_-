@@ -6,8 +6,18 @@ export default function () {
 
   const [gifts, setGifts] = useState([])
 
-  function onAdd(obj) {
-      setGifts(prev => [...prev, obj])
+  function onAdd(obj, id) {
+      setGifts(prev => [...prev,
+        {
+          ...obj,
+          id: id
+        }
+      ])
+  }
+
+  function onDelete(id) {
+    let newGiftArray = gifts.filter(element => (element.id !== parseInt(id)));
+    setGifts(newGiftArray);
   }
 
   return (
@@ -18,6 +28,7 @@ export default function () {
         {gifts.length > 0 ?
             <GiftsContainer
                 gifts={gifts}
+                onDelete={(id) => onDelete(id)}
             />
             :
             null

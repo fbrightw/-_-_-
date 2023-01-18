@@ -4,16 +4,12 @@ import {animalSpecies} from "../../utils/data";
 
 function Filter(props) {
 
-  const [id, setId] = useState(0);
+  const [count, setCount] = useState(0);
   const [obj, setObj] = useState({
     species: '',
     gender: '',
     age: ''
   })
-
-  useEffect(() => {
-    setId(id + 1)
-  }, [])
 
   function onDropdownClick(value) {
       setObj({
@@ -81,7 +77,10 @@ function Filter(props) {
                 placeholder="Укажите возраст"
             />
           </Form>
-          <Button variant="dark" onClick={() => props.onAdd(obj)}>
+          <Button variant="dark" onClick={() => {
+            props.onAdd(obj, count);
+            setCount(count + 1);
+          }}>
               Добавить
           </Button>
         </div>

@@ -33,6 +33,7 @@
 }
 
 .delete-text {
+    all: unset;
     color: darkred;
     cursor: pointer;
     display: flex;
