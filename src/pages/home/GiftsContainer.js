@@ -12,11 +12,17 @@ function GiftsContainer(props) {
         <Card className="card">
           <ListGroup variant="flush">
             {props.gifts.map(gift => (
-              <div >
+              <div>
                 <ListGroup.Item>
-                  <div>
-                  {gift.species}
-                  <div className="delete-text" id={gift.id} onClick={(e) => onDelete(e.target.value)}>Удалить</div>
+                  <div className="card-header">
+                    {gift.species}
+                    <div
+                        className="delete-text"
+                        id={gift.id}
+                        onClick={(e) => onDelete(e.target.value)}
+                    >
+                      Удалить
+                    </div>
                   </div>
                 </ListGroup.Item>
                 <ListGroup.Item>
