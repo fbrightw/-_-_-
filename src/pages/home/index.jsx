@@ -4,7 +4,7 @@ import GiftsContainer from "./GiftsContainer";
 import {setGivenGiftsArray, setRemovedGiftsArray,} from "../../slices/giftsSlice";
 import {useDispatch, useSelector} from "react-redux";
 
-export default function () {
+export default function() {
 
   const [gifts, setGifts] = useState([]);
   const [isDeleting, setIsDeleting] = useState(false);

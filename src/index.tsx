@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Home from "./pages/home";
+import {HashRouter, Route, Routes} from "react-router-dom";
+import HomePage from "./pages/home";
 import Analytics from "./pages/analytics";
 import Actions from "./pages/actions";
 import AppNavbar from "./navbar/AppNavbar";
@@ -16,14 +16,24 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <Provider store={store}>
-          <BrowserRouter>
+          <HashRouter>
               <AppNavbar/>
               <Routes>
-                <Route path="/home" element={<Home/>} />
-                <Route path="/analytics" element={<Analytics/>} />
-                <Route path="/actions" element={<Actions/>} />
+                  <Route
+                      path='/home'
+                      element={<HomePage/>}
+                  />
+                  <Route
+                      path='/analytics'
+                      element={<Analytics/>}
+
+                  />
+                  <Route
+                      path="/actions"
+                      element={<Actions/>}
+                  />
               </Routes>
-          </BrowserRouter>
+          </HashRouter>
       </Provider>
   </React.StrictMode>
 );

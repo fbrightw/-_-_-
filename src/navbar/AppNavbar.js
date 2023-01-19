@@ -8,9 +8,9 @@ function AppNavbar() {
       <Navbar bg="dark" variant="dark">
         <Container>
           <Nav className="me-auto">
-            <Nav.Link href='/home'>Home</Nav.Link>
-            <Nav.Link href='/analytics'>Analytics</Nav.Link>
-            <Nav.Link href='/actions'>Actions</Nav.Link>
+            <Nav.Link href='/#/home'>Home</Nav.Link>
+            <Nav.Link href='/#/analytics'>Analytics</Nav.Link>
+            <Nav.Link href='/#/actions'>Actions</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
