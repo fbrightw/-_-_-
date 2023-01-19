@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Dropdown, Form} from "react-bootstrap";
 import {animalSpecies} from "../../utils/data";
-import {useDispatch, useSelector} from "react-redux";
-import {setGiftToArray} from "../../slices/giftsSlice";
+import TitleForm from "../../utils/TitleForm";
 
 const defaultGiftObject = {
   species: '',
@@ -14,9 +13,6 @@ function Filter(props) {
 
   const [count, setCount] = useState(0);
   const [obj, setObj] = useState(defaultGiftObject)
-
-  const dispatch = useDispatch();
-  const gifts = useSelector(state => state.giftArray.gifts);
 
   function onDropdownClick(value) {
       setObj({
@@ -41,7 +37,7 @@ function Filter(props) {
 
   return (
       <div style={{width: '50%', marginLeft: 'auto', marginRight: 'auto'}}>
-        <div style={{fontSize: '2em', display: 'flex', justifyContent: 'center'}}>Подарить подарок</div>
+        <TitleForm title="Подарить подарок"/>
         <div className="filter">
           <Dropdown onSelect={(value) => onDropdownClick(value)}>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -86,7 +82,6 @@ function Filter(props) {
           </Form>
           <Button variant="dark" onClick={() => {
             props.onAdd(obj, count);
-            dispatch(setGiftToArray([...gifts, obj]));
             setCount(count + 1);
           }}>
               Добавить
