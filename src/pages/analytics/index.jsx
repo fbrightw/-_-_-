@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ArcElement, BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from 'chart.js';
 import {Bar, Pie} from 'react-chartjs-2';
 import TitleForm from "../../utils/TitleForm";
 import {useSelector} from "react-redux";
-import {animalSpecies} from "../../utils/data";
+import {barData, pieChartObject} from "../../utils/data";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -15,47 +15,6 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-const barData = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [1, 3, 10],
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: [1, 6, 10],
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
-
-const data = {
-  labels: animalSpecies.map(el => el.name),
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
 
 const options = {
   responsive: true,
@@ -70,50 +29,71 @@ const options = {
   },
 };
 
-
 export default function (props) {
 
-  const giftsStore = useSelector(state => state.giftArray.givenGifts);
-  // const [speciesChartData, setSpeciesChartData] = useState(defaultData);
+  const givenGifts = useSelector(state => state.giftArray.givenGifts);
+  const [speciesChartData, setSpeciesChartData] = useState(pieChartObject);
+  const [barChartData, setBarChatData] = useState(barData);
 
-  console.log("ana", giftsStore)
+  function handleMapValues(arr, map) {
+    for (let i = 0; i < arr.length; i++) {
+      if (map.has(arr[i]))
+        map.set(arr[i], map.get(arr[i]) + 1);
+      else
+        map.set(arr[i], 1)
+    }
+    return map
+  }
 
-  // function computeData() {
-  //   let arrOfSpecies =  giftsStore.map(el => el.species);
-  //   let arrSpeciesCount = new Map();
-  //   for (let i = 0; i <= arrOfSpecies.length; i++) {
-  //     if (arrSpeciesCount.has(arrOfSpecies[i]))
-  //       arrSpeciesCount.set(arrOfSpecies[i], arrSpeciesCount.get(arrOfSpecies[i]) + 1);
-  //     else
-  //       arrSpeciesCount.set(arrOfSpecies[i], 1)
-  //   }
-  //   return arrSpeciesCount;
-  // }
+  function computePieChartData() {
+    let arrOfSpecies =  givenGifts.map(el => el.species);
+    let speciesCountMap = new Map();
+    return handleMapValues(arrOfSpecies, speciesCountMap);
+  }
 
-  // useEffect(() => {
-  //   let stateCopy = [...speciesChartData];
-  //   setSpeciesChartData(prev => {
-  //     return {
-  //       ...prev,
-  //       datasets: [
-  //           ...datasets[0],
-  //           data: computeData()
-  //       ]
-  //     }
-  //   })
-  // })
+  function computeBarChartData(arr) {
+    let mapByGender = new Map();
+
+    return (new Map([...handleMapValues(arr, mapByGender)].sort((a, b) => a[1] - b[1])))
+  }
+
+  useEffect(() => {
+    let mapLabelData = computePieChartData();
+    let dataSetsObject = speciesChartData.datasets;
+    dataSetsObject[0].data  = [...mapLabelData.values()];
+    setSpeciesChartData(prevState => ({
+      ...prevState,
+      labels: [...mapLabelData.keys()],
+      datasets: dataSetsObject
+    }))
+  }, [])
+
+  useEffect(() => {
+    let arrOfFemales = givenGifts.filter(el => el.gender === 'Ж').map(el => el.age);
+    let arrOfMales = givenGifts.filter(el => el.gender === 'М').map(el => el.age);
+    let females = computeBarChartData(arrOfFemales);
+    let males = computeBarChartData(arrOfMales);
+    let dataSetsArr = barChartData.datasets;
+    dataSetsArr[0].data = [...males.values()];
+    dataSetsArr[1].data = [...females.values()];
+    setBarChatData(prevState => ({
+      ...prevState,
+      datasets: dataSetsArr
+    }))
+  },[])
+
 
   return (
       <>
         <TitleForm title="Распределение по сказочным животным"/>
-        {/*{(data.datasets.data.length > 0 ?*/}
+        {(speciesChartData.datasets[0].data.length > 0 ?
             <div style={{margin: 'auto', width: "40%", height: "40%"}}>
-              <Pie data={data}/>
+              <Pie data={speciesChartData}/>
               <Bar options={options} data={barData} />;
             </div>
-        {/*    :*/}
-        {/*    null*/}
-        {/*)}*/}
+            :
+            null
+        )}
       </>
   );
 }

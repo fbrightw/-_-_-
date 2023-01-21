@@ -13,11 +13,22 @@ export default function (props) {
         <TitleForm title="История действий:"/>
         <Card className="card">
           <ListGroup variant="flush">
-                <div>
-                  <ListGroup.Item>
-
-                  </ListGroup.Item>
-                </div>
+            {
+              <div>
+                <ListGroup.Item>
+                  <div className="card-header">
+                    {gift.species}
+                    <button
+                        className="delete-text"
+                        value={gift.id}
+                        onClick={(e) => props.onDelete(e.target.value)}
+                    >
+                      Удалить
+                    </button>
+                  </div>
+                </ListGroup.Item>
+              </div>
+            }
           </ListGroup>
         </Card>
       </div>

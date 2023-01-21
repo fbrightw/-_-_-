@@ -6,7 +6,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 export default function() {
 
-  const [gifts, setGifts] = useState([]);
+  const givenGifts = useSelector(state => state.giftArray.givenGifts);
+  const [gifts, setGifts] = useState(givenGifts);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deletedGiftObject, setDeletedGiftObject] = useState();
   const dispatch = useDispatch();
