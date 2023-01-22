@@ -3,6 +3,7 @@ import Filter from "./Filter";
 import GiftsContainer from "./GiftsContainer";
 import {setGivenGiftsArray, setRemovedGiftsArray,} from "../../../slices/giftsSlice";
 import {useDispatch, useSelector} from "react-redux";
+import renderIf from "../../../utils/renderIf";
 
 export default function() {
 
@@ -35,7 +36,6 @@ export default function() {
 
   function onAdd(obj, id) {
     const errors = findFormErrors(obj);
-    console.log("er", errors)
     if ( Object.keys(errors).length > 0 )
       setErrors(errors);
     else {
@@ -75,14 +75,12 @@ export default function() {
           onAdd={onAdd}
           errors={errors}
         />
-        {gifts.length > 0 ?
+        {renderIf(gifts.length > 0,
             <GiftsContainer
                 gifts={gifts}
                 onDelete={(id) => onDelete(id)}
             />
-            :
-            null
-        }
+        )}
       </div>
   );
 }

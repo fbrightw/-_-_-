@@ -4,6 +4,7 @@ import {Bar, Pie} from 'react-chartjs-2';
 import TitleForm from "../../../utils/TitleForm";
 import {useSelector} from "react-redux";
 import {barData, pieChartObject} from "../../../utils/data";
+import renderIf from "../../../utils/renderIf";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -19,9 +20,6 @@ ChartJS.register(
 const options = {
   responsive: true,
   plugins: {
-    // legend: {
-    //   position: 'top' as const,
-    // },
     title: {
       display: true,
       text: 'Chart.js Bar Chart',
@@ -86,13 +84,11 @@ export default function (props) {
   return (
       <>
         <TitleForm title="Распределение по сказочным животным"/>
-        {(speciesChartData.datasets[0].data.length > 0 ?
+        {renderIf(speciesChartData.datasets[0].data.length > 0,
             <div style={{margin: 'auto', width: "40%", height: "40%"}}>
               <Pie data={speciesChartData}/>
               <Bar options={options} data={barData} />;
             </div>
-            :
-            null
         )}
       </>
   );

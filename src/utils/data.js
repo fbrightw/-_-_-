@@ -25,7 +25,7 @@ export const pieChartObject = {
   labels: [],
   datasets: [
     {
-      label: '# of Votes',
+      label: '# of species',
       data: [],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
@@ -45,7 +45,7 @@ export const pieChartObject = {
 };
 
 export const barData = {
-  labels: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  labels: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
   datasets: [
     {
       label: 'Мальчик',

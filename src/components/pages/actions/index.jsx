@@ -4,6 +4,7 @@ import {Card, ListGroup} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ListItemForm from "../../../utils/ListItemForm";
+import renderIf from "../../../utils/renderIf";
 
 export default function() {
 
@@ -20,7 +21,7 @@ export default function() {
         <TitleForm title="История действий:"/>
         <Card>
           <ListGroup variant="flush">
-            {removedGifts.length > 0 ?
+            {renderIf(removedGifts.length > 0,
               removedGifts.map(gift =>
                 <ListItemForm
                   key={gift.id}
@@ -29,11 +30,8 @@ export default function() {
                   buttonText="Вернуться"
                   onClick={() => onClick}
                 />
-                )
-                :
-                null
-            }
-            {givenGifts.length > 0 ?
+              ))}
+            {renderIf(givenGifts.length > 0,
                 givenGifts.map(gift =>
                     <ListItemForm
                         key={gift.id}
@@ -42,10 +40,7 @@ export default function() {
                         buttonText="Вернуться"
                         onClick={onClick}
                     />
-                )
-                :
-                null
-            }
+            ))}
           </ListGroup>
         </Card>
       </div>
