@@ -28,13 +28,13 @@ export default function() {
     if ( !age || age === '' )
       newErrors.age = 'Не указан возвраст'
 
-    if ( parseInt(age) < 2 || parseInt(age) > 12 ) {
+    if (!age.match(/\b(?:[2-9]|1[0-1])\b/)) {
       newErrors.age = 'Возраст ребенка: от 2 до 12 лет'
     }
     return newErrors
   }
 
-  function onAdd(obj, id) {
+  function onAdd(obj) {
     const errors = findFormErrors(obj);
     if ( Object.keys(errors).length > 0 )
       setErrors(errors);
@@ -43,7 +43,7 @@ export default function() {
       setGifts(prev => [...prev,
         {
           ...obj,
-          id: id
+          id: Date.now()
         }
       ])
     }

@@ -11,7 +11,6 @@ const defaultGiftObject = {
 
 function Filter(props) {
 
-  const [count, setCount] = useState(0);
   const [obj, setObj] = useState(defaultGiftObject);
 
   function onDropdownClick(value) {
@@ -101,8 +100,7 @@ function Filter(props) {
               </Form.Control.Feedback>
             </Form.Group>
             <Button variant="dark" onClick={() => {
-              props.onAdd(obj, count);
-              setCount(count + 1);
+              props.onAdd(obj);
             }}>
               Добавить
             </Button>
