@@ -66,20 +66,37 @@ export default function (props) {
     }))
   }, [])
 
+  function noname(gender) {
+    let array = givenGifts.filter(el => el.gender === gender).map(el => el.age);
+    let map = computeBarChartData(array);
+
+    let baseArray = new Array(11).fill(0);
+    for (let [key, value] of map) {
+      baseArray[parseInt(key) - 2] = value;
+    }
+
+    return baseArray
+  }
+
+  function computeDatasetArray() {
+
+    let males = noname('М');
+    let females = noname('Ж');
+
+    let datasetsArray = barChartData.datasets;
+    datasetsArray[0].data = males;
+    datasetsArray[1].data = females;
+
+    return datasetsArray;
+  }
+
   useEffect(() => {
-    let arrOfFemales = givenGifts.filter(el => el.gender === 'Ж').map(el => el.age);
-    let arrOfMales = givenGifts.filter(el => el.gender === 'М').map(el => el.age);
-    let females = computeBarChartData(arrOfFemales);
-    let males = computeBarChartData(arrOfMales);
-    let dataSetsArr = barChartData.datasets;
-    dataSetsArr[0].data = [...males.values()];
-    dataSetsArr[1].data = [...females.values()];
+    let datasetArray = computeDatasetArray();
     setBarChatData(prevState => ({
       ...prevState,
-      datasets: dataSetsArr
+      datasets: datasetArray
     }))
   },[])
-
 
   return (
       <>
@@ -87,7 +104,7 @@ export default function (props) {
         {renderIf(speciesChartData.datasets[0].data.length > 0,
             <div style={{margin: 'auto', width: "40%", height: "40%"}}>
               <Pie data={speciesChartData}/>
-              <Bar options={options} data={barData} />;
+              <Bar options={options} data={barData} />
             </div>
         )}
       </>
