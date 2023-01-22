@@ -28,7 +28,7 @@ export default function() {
     if ( !age || age === '' )
       newErrors.age = 'Не указан возвраст'
 
-    if (!age.match(/\b(?:[2-9]|1[0-1])\b/)) {
+    if (!age.match(/\b(?:[2-9]|1[0-2])\b/)) {
       newErrors.age = 'Возраст ребенка: от 2 до 12 лет'
     }
     return newErrors
