@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Filter from "./Filter";
 import GiftsContainer from "./GiftsContainer";
-import {setGivenGiftsArray, setRemovedGiftsArray,} from "../../slices/giftsSlice";
+import {setGivenGiftsArray, setRemovedGiftsArray,} from "../../../slices/giftsSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 export default function() {
@@ -10,16 +10,43 @@ export default function() {
   const [gifts, setGifts] = useState(givenGifts);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deletedGiftObject, setDeletedGiftObject] = useState();
+  const [ errors, setErrors ] = useState({});
+
   const dispatch = useDispatch();
-  const removedGifts = useSelector(state => state.giftArray.removedGifts)
+  const removedGifts = useSelector(state => state.giftArray.removedGifts);
+
+  const findFormErrors = (form) => {
+    const { species, gender, age } = form
+    const newErrors = {};
+    if ( !species || species === 'Вид животного' )
+      newErrors.species = 'Должен быть выбран вид животного'
+
+    if ( !gender )
+      newErrors.gender = 'Должен быть пол'
+
+    if ( !age || age === '' )
+      newErrors.age = 'Не указан возвраст'
+
+    if ( parseInt(age) < 2 || parseInt(age) > 12 ) {
+      newErrors.age = 'Возраст ребенка: от 2 до 12 лет'
+    }
+    return newErrors
+  }
 
   function onAdd(obj, id) {
-    setGifts(prev => [...prev,
-      {
-        ...obj,
-        id: id
-      }
-    ])
+    const errors = findFormErrors(obj);
+    console.log("er", errors)
+    if ( Object.keys(errors).length > 0 )
+      setErrors(errors);
+    else {
+      setErrors({});
+      setGifts(prev => [...prev,
+        {
+          ...obj,
+          id: id
+        }
+      ])
+    }
   }
 
   useEffect(() => {
@@ -46,6 +73,7 @@ export default function() {
       <div>
         <Filter
           onAdd={onAdd}
+          errors={errors}
         />
         {gifts.length > 0 ?
             <GiftsContainer

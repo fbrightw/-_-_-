@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {ArcElement, BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from 'chart.js';
 import {Bar, Pie} from 'react-chartjs-2';
-import TitleForm from "../../utils/TitleForm";
+import TitleForm from "../../../utils/TitleForm";
 import {useSelector} from "react-redux";
-import {barData, pieChartObject} from "../../utils/data";
+import {barData, pieChartObject} from "../../../utils/data";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

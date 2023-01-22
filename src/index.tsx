@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {HashRouter, Route, Routes} from "react-router-dom";
-import HomePage from "./pages/home";
-import Analytics from "./pages/analytics";
-import Actions from "./pages/actions";
-import AppNavbar from "./navbar/AppNavbar";
+import HomePage from "./components/pages/home";
+import Analytics from "./components/pages/analytics";
+import Actions from "./components/pages/actions";
+import AppNavbar from "./components/navbar/AppNavbar";
 import {store} from "./slices/store";
 import {Provider} from "react-redux";
 

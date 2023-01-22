@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Dropdown, Form} from "react-bootstrap";
-import {animalSpecies} from "../../utils/data";
-import TitleForm from "../../utils/TitleForm";
+import React, {useState} from 'react';
+import {Button, Form} from "react-bootstrap";
+import {animalSpecies} from "../../../utils/data";
+import TitleForm from "../../../utils/TitleForm";
 
 const defaultGiftObject = {
   species: '',
@@ -12,7 +12,7 @@ const defaultGiftObject = {
 function Filter(props) {
 
   const [count, setCount] = useState(0);
-  const [obj, setObj] = useState(defaultGiftObject)
+  const [obj, setObj] = useState(defaultGiftObject);
 
   function onDropdownClick(value) {
       setObj({
@@ -36,20 +36,29 @@ function Filter(props) {
   }
 
   return (
-      <div style={{width: '50%', marginLeft: 'auto', marginRight: 'auto'}}>
+      <div className="centering-container">
         <TitleForm title="Подарить подарок"/>
         <div className="filter">
-          <Dropdown onSelect={(value) => onDropdownClick(value)}>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              {obj.species === '' ? 'Вид животного' : obj.species}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {animalSpecies.map(el =>
-                  <Dropdown.Item eventKey={el.name} key={el.id}>{el.name}</Dropdown.Item>
-              )}
-            </Dropdown.Menu>
-          </Dropdown>
-          <Form>
+          <Form.Group>
+            <Form.Select
+                aria-label="Default select example"
+                name="species"
+                isInvalid={ !!props.errors.species }
+                onChange={(e) => onDropdownClick(e.target.value)}
+            >
+              <option>Вид животного</option>
+              {animalSpecies.map(el => (
+                  <option
+                      value={el.name}
+                      key={el.id}
+                  >
+                    {el.name}
+                  </option>
+              ))}
+            </Form.Select>
+            <Form.Control.Feedback type='invalid'>
+              { props.errors.species }
+            </Form.Control.Feedback>
             <div  key={`inline-radio`} className="mb-3">
               <Form.Check
                   label="М"
@@ -59,6 +68,7 @@ function Filter(props) {
                   inline
                   value="М"
                   onClick={(e) => onGenderClick(e.target.value)}
+                  isInvalid={ !!props.errors.gender }
               />
               <Form.Check
                   label="Ж"
@@ -68,18 +78,24 @@ function Filter(props) {
                   inline
                   value="Ж"
                   onClick={(e) => onGenderClick(e.target.value)}
+                  isInvalid={ !!props.errors.gender }
               />
+              <Form.Control.Feedback type='invalid'>
+                { props.errors.gender }
+              </Form.Control.Feedback>
             </div>
-          </Form>
-          <Form>
             <Form.Control
                 size="df"
                 type="text"
                 value={obj.name}
                 onChange={(e) => onInput(e)}
                 placeholder="Укажите возраст"
+                isInvalid={ !!props.errors.age }
             />
-          </Form>
+            <Form.Control.Feedback type='invalid'>
+              { props.errors.age }
+            </Form.Control.Feedback>
+          </Form.Group>
           <Button variant="dark" onClick={() => {
             props.onAdd(obj, count);
             setCount(count + 1);

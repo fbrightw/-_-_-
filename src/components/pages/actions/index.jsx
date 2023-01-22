@@ -1,9 +1,9 @@
 import React from 'react';
-import TitleForm from "../../utils/TitleForm";
+import TitleForm from "../../../utils/TitleForm";
 import {Card, ListGroup} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ListItemForm from "../../utils/ListItemForm";
+import ListItemForm from "../../../utils/ListItemForm";
 
 export default function() {
 

@@ -7,6 +7,12 @@
     min-height: 100px;
 }
 
+.centering-container {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto
+}
+
 .filter {
     display: flex;
     align-items: baseline;
