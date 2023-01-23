@@ -21,4 +21,7 @@ To run this project, install it locally using npm:
 ```
 $ npm install
 $ npm run start
-[React App.webm](https://user-images.githubusercontent.com/81295000/213982548-36bbcea5-fa96-4e66-84e5-861527b3689f.webm)
+
+```
+
+![React App](https://user-images.githubusercontent.com/81295000/213982652-ebbd1a34-fbe7-431b-b7c5-41c4bc538c2c.gif)
