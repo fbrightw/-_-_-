@@ -21,3 +21,4 @@ To run this project, install it locally using npm:
 ```
 $ npm install
 $ npm run start
+![React App](https://user-images.githubusercontent.com/81295000/213982347-1fe8b60a-59a4-4111-90f5-2262c08743a3.gif)
